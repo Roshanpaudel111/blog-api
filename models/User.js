@@ -19,8 +19,17 @@ const UsersSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    posts: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post',
+    },
   },
   { timestamps: true }
 );
+UsersSchema.post('findOneAndDelete', async function (document) {
+  if (document) {
+    await Review.deleteMany({ _id: { $in: document.posts } });
+  }
+});
 
 module.exports = mongoose.model('User', UsersSchema);

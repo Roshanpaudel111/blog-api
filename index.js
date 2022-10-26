@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const authRoute = require('./routes/auth');
+const userRoute = require('./routes/user');
 const { urlencoded } = require('express');
 dotenv.config();
 mongoose
@@ -16,9 +17,10 @@ mongoose
 
 //middlewares
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 //routes
 app.use('/api/auth', authRoute);
+app.use('/api/user', userRoute);
 
 app.listen(3000, () => {
   console.log('Listening to 3000');
