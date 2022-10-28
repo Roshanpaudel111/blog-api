@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const UsersSchema = new mongoose.Schema(
   {
     username: {
@@ -17,19 +17,19 @@ const UsersSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default: '',
+      default: "",
     },
     posts: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Post',
+      ref: "Post",
     },
   },
   { timestamps: true }
 );
-UsersSchema.post('findOneAndDelete', async function (document) {
+UsersSchema.post("findOneAndDelete", async function (document) {
   if (document) {
     await Review.deleteMany({ _id: { $in: document.posts } });
   }
 });
 
-module.exports = mongoose.model('User', UsersSchema);
+module.exports = mongoose.model("User", UsersSchema);
